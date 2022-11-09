@@ -64,7 +64,7 @@
 
         echo            "</div>
                             <div class='item_box_header_img'>
-                                <img src='../graphics/".$item['item_tag']."' alt='sprite'>
+                                <img src='../graphics/".$item['item_tag'].".png' alt='sprite'>
                             </div>
                         </div>
                     </div>
