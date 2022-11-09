@@ -1,5 +1,5 @@
 <?php
-    $co = pg_connect('host=localhost dbname=titanquest user=tqdb password=tqdb')
+    $co = pg_connect('host=localhost dbname=titanquest user=postgres password=tqdb')
     or die('Connexion impossible : '.prg_last_error());
 
     $p = "/€€/";
