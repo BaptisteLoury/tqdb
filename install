@@ -1,0 +1,40 @@
+# Installation de postgres
+sudo apt-get update
+sudo apt-get install postgres
+
+# Configuration de postgres
+sudo -u postgres psql
+\du
+\password postgres
+	tqdb
+
+# Création de la base de donnée
+CREATE DATABASE XXXXX;
+\c XXXXX;
+
+# Installation d'Apache
+sudo apt-get install apache2
+
+# Vérifier si le service est bien lancé
+sudo systemctl status apache2.service
+
+# Installation de php 7
+sudo apt-get install php libapache2-mod-php php-pqsql
+
+# Installation de python 3
+sudo apt-get install python3
+
+# Installation de psycopg2
+python3 get-pip.py
+pip install psycopg2-binary
+
+# Récupération du projet depuis mon pc perso
+ssh-add XXXXXXXX
+scp -r tqdb/ root@159.223.22.199:/var/www/html
+
+# Création des tables
+psql -u postgres XXXXX
+\i ...../createTQDB.sql
+
+# Remplissage de la base
+python3 fillTable.py

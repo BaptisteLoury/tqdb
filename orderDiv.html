@@ -1,0 +1,171 @@
+<!doctype html>
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>SwoRS</title>
+        <link rel="stylesheet" href="css/styles.css?">
+        <script src="jquery-3.6.0.js"></script>
+        <style type="text/css">
+            body {
+                height: 100vh;
+                width: 100vw;
+                padding: 0;
+                margin: 0;
+                font-family: system-ui;
+            }
+            #top-bar {
+                height: 30px;
+                width: 100%;
+                background-image: linear-gradient(#3a3a3a,#1a1a1a);
+                border-bottom: 3px solid black;
+                border-top: 1px solid black;
+                box-sizing: border-box;
+                position: absolute;
+                top: 0;
+            }
+            main {
+                width: 100%;
+                position: absolute;
+                top: 30px;
+                height: calc(100% - 30px);
+                background-color: grey;
+            }
+            .item-box {
+                background-color: #3a3a3a;
+                width: 300px;
+                font-size: 0.8em;
+                border-radius: 5px;
+            }
+                .item-box span {
+                    display: block;
+                }
+                .item-box-top-type {
+                    display: flex;
+                    justify-content: flex-end;
+                    background-color: #1a1a1a;
+                    color: #aaaaaa;
+                    padding-right: 15px;
+                    border-radius: 5px 5px 0 0;
+                }
+                    .item-box-top-type span {
+                        margin-left: 15px;
+                    }
+                .item-box-name {
+                    color: blue;
+                    font-weight: bold;
+                }
+                .item-box-top-carac, .item-box-middle, .item-box-bottom {
+                    padding: 10px 10px 10px 10px;
+                }
+        </style>
+    </head>
+    <body>
+        <div id="top-bar">
+            
+        </div>
+        <main>
+            <label for="beforeC">Enlever lettres avant C</label>
+            <input type="checkbox" name="beforeC" id="beforeC">
+            <select name="orderBy" id="order-combo">
+                <option value="var1">Var1</option>
+                <option value="var2">Var2</option>
+            </select>
+
+            <div id="item-list">
+                <div class="item" data-var1="a" data-var2="3">A:3</div>
+                <div class="item" data-var1="c" data-var2="1">C:1</div>
+                <div class="item" data-var1="b" data-var2="4">B:4</div>
+                <div class="item" data-var1="d" data-var2="2">D:2</div>
+            </div>
+            <div class="item-box">
+                <div class="item-box-top">
+                    <div class="item-box-top-type">
+                        <span>Épique</span>
+                        <span>Lance</span>
+                    </div>
+                    <div class="item-box-top-carac">
+                        <span class="item-box-name">Nagblade</span>
+                        <span>74 ~ 85 Damage</span>
+                        <span>25% Piercing</span>
+                        <span>Speed Slow</span>
+                    </div>
+                    <div class="item-box-top-icon"></div>
+                </div>
+                <div class="item-box-middle">
+                    <span>+20% Pierce Damage</span>
+                    <span>87 Energy Leech over 3.0 Seconds</span>
+                    <span>+46% Energy Leech</span>
+                    <span>+18 Dexterity</span>
+                    <span>+20 Attack Speed</span>
+                </div>
+                <div class="item-box-bottom">
+                    <span>Required Player Level : 11</span>
+                    <span>Required Strength : 142</span>
+                    <span>Required Dexterity : 48</span>
+                </div>
+            </div>      
+        </main>
+        
+        <script type="text/javascript">
+            function sortByVar1(a,b)
+            {
+                return String.prototype.localeCompare.call($(a).data('var1').toLowerCase(), $(b).data('var1').toLowerCase());
+            }
+            function sortByVar2(a,b)
+            {
+                return parseInt($(a).data('var2')) - parseInt($(b).data('var2'));
+            }
+            function selectSort()
+            {
+                var itemList = $(".item");
+                switch ($('#order-combo').find('option:selected').val()) {
+                    case 'var1':
+                        itemList.sort(function(a,b) { return sortByVar1(a,b);});
+                        break;
+                    case 'var2':
+                        itemList.sort(function(a,b) { return sortByVar2(a,b);});
+                        break;
+                    default:
+                }
+                $('#item-list').html(itemList);
+            }
+            function deleteBeforeC(that)
+            {
+                var itemList = $(".item");
+                if( $(that).is(":checked") )
+                {
+                    itemList
+                    .filter( 
+                        function() {
+                            return $(this).data('var1') < 'c';
+                        })
+                    .each(
+                        function() {
+                            $(this).css('display','none')
+                        }
+                        );
+                }
+                else
+                {
+                    itemList
+                    .each(
+                        function() {
+                            $(this).css('display','block')
+                        }
+                        );
+                }
+                $('#item-list').html(itemList);
+
+            }
+
+
+            selectSort();
+            deleteBeforeC($('#beforeC'));
+            $('#order-combo').change(function() {selectSort();})
+            $('#beforeC').change(function() {
+                deleteBeforeC(this);
+            })
+        </script>
+    </body>
+</html>

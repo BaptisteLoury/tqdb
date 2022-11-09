@@ -1,0 +1,40 @@
+body, html {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+}
+
+#lateral_pan {
+    width: 20%;
+    height: 100vh;
+    background-color: #2f1f1f;
+}
+
+#right_pan {
+    width: 80%;
+    height: 100vh;
+    display: flex;
+    flex-flow: column;
+}
+
+#top_pan {
+    width: 100%;
+    flex: 0 1 50px;
+    background-color: #201515;
+}
+
+main {
+    background-color: #bbd0f7;
+    width: 100%;
+    min-height: calc(100vh - 50px);
+    max-height: calc(100vh - 50px);
+    flex: 1 1 auto;
+    overflow-y: scroll;
+    padding: 20px;
+    box-sizing: border-box;
+}
